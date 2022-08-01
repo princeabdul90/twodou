@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'ui/main_screen.dart';
+import 'ui/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,12 +14,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final theme = TwoDouTheme.globalTheme();
+
     return MaterialApp(
       title: 'Twodou',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: theme,
       home: const MainScreen(),
     );
   }
