@@ -20,6 +20,12 @@ dependencies:
   flutter_svg: ^1.1.1+1
   shared_preferences: ^2.0.15
   google_fonts: ^3.0.1
+  provider: ^6.0.3
+  equatable: ^2.0.3
+  sqflite: ^2.0.3
+  path_provider: ^2.0.11
+  synchronized: ^3.0.0+2
+  sqlbrite: ^2.3.0
 
 dev_dependencies:
   flutter_test:
