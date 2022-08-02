@@ -26,7 +26,12 @@ class TwoDouTheme {
       fontSize: 24,
     ),
     headline2: GoogleFonts.nunito(
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+      fontSize: 22,
+    ),
+    headline3: GoogleFonts.nunito(
+      fontWeight: FontWeight.w400,
       color: Colors.black,
       fontSize: 22,
     ),
@@ -34,6 +39,7 @@ class TwoDouTheme {
 
   static ThemeData globalTheme() {
     return ThemeData(
+      visualDensity: VisualDensity.adaptivePlatformDensity,
       textTheme: globalTextTheme,
       appBarTheme: const AppBarTheme(
         elevation: 0.0,
