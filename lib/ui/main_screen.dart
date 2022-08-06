@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:twodou_app/ui/theme.dart';
 
-import 'category/category_card.dart';
+import 'category/category_grid_view.dart';
 import 'colors.dart';
 
 class MainScreen extends StatelessWidget {
@@ -13,6 +13,7 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(10),
@@ -38,7 +39,11 @@ class MainScreen extends StatelessWidget {
 
               ),
             ),
-            buildCategoryGrid(),
+
+            const SliverToBoxAdapter(
+                child: CategoryGridView()
+            )
+
           ],
         ),
       ),
@@ -50,21 +55,6 @@ class MainScreen extends StatelessWidget {
     );
   }
 
-  Widget buildCategoryGrid() {
-    return SliverToBoxAdapter(
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 15,
-          crossAxisSpacing: 15,
-        ),
-        itemCount: 10,
-        primary: false,
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, int index) {
-          return const CategoryCard();
-        },
-      ),
-    );
-  }
+
+
 }

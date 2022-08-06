@@ -5,13 +5,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../theme.dart';
-import '../colors.dart';
+import '../../data/model/category.dart';
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard({Key? key}) : super(key: key);
+  final Category category;
+  const CategoryCard({Key? key, required this.category }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
@@ -21,31 +23,33 @@ class CategoryCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
         //TODO: Go to tasks list page
         onTap: () {},
+
+
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 25, 0, 20),
+            padding: const EdgeInsets.fromLTRB(0, 35, 0, 20),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SvgPicture.asset(
-                  'assets/images/file-text.svg',
+                  'assets/images/${category.icon}.svg',
                   semanticsLabel: 'Menu',
-                  color: blue,
+                  color: Color(getColor(category.color)),
                   width: 30,
                   height: 30,
                 ),
                 const SizedBox(height: 5),
                 SizedBox(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'All',
+                        category.title ?? '',
                         style: TwoDouTheme.globalTextTheme.headline2,
                       ),
                       Text(
-                        '21 Tasks',
+                        getTaskCount(category.taskCount),
                         style: TwoDouTheme.globalTextTheme.bodyText2,
                       ),
                     ],
