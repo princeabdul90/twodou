@@ -11,11 +11,11 @@ class Category extends Equatable {
   int? id;
   final String? title;
   final int? taskCount;
-  final Color? color;
-  final Icon? icon;
+  final String? color;
+  final String? icon;
 
   Category({
-    required this.id,
+    this.id,
     required this.taskCount,
     required this.title,
     required this.color,
@@ -40,4 +40,15 @@ class Category extends Equatable {
         'color': color,
         'icon': icon,
       };
+}
+
+String getTaskCount(int? tasks) {
+  if (tasks == null) {
+    return '0 tasks';
+  }
+  return tasks.toString() + ' tasks';
+}
+
+int getColor(String? color) {
+  return int.parse(color!);
 }

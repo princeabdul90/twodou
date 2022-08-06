@@ -8,18 +8,16 @@ import 'model/category.dart';
 abstract class Repository {
   // Find Methods
   Future<List<Category>> findAllCategories();
-
   Stream<List<Category>> watchAllCategories();
-
   Future<Category> findCategoryById(int id);
-  Future<Category> getCategoryTaskCount(int id);
-
   // Update Methods
-  Future<int> updateCategoryTaskCount(Category category, int id);
-
+  Future<int> updateCategoryTaskCount(Category category);
   // Delete Methods
   Future<void> deleteCategory(Category category);
-  Future<void> deleteAllCategories(List<Category> category);
+  // Insert Method
+  Future<int> insertCategory(Category category);
+
+
 
   // Initializing and closing
   Future init();
