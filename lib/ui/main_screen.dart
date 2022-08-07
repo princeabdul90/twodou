@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:twodou_app/ui/theme.dart';
 
-import 'category/category_grid_view.dart';
+import 'category/category_page.dart';
 import 'colors.dart';
 
 class MainScreen extends StatelessWidget {
@@ -17,11 +17,11 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(10),
-        color: background,
+        color: white,
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              backgroundColor: background,
+              backgroundColor: white,
               expandedHeight: 120,
               leading: const Icon(
                 Icons.menu_rounded,
