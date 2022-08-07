@@ -18,4 +18,4 @@ const Color violet = Color(0xff763494);
 const Color teal = Color(0xff09ab93);
 const Color pink = Color(0xffea6473);
 const Color lightBlue = Color(0xed188ae8);
-const Color background = Color(0xffeceff1);
+const Color white = Color(0xffeceff1);

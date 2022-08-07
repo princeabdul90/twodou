@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:twodou_app/data/repository.dart';
+import 'package:twodou_app/ui/task/task_page.dart';
 import '../theme.dart';
 import '../../data/model/model.dart';
 
@@ -14,63 +15,53 @@ class CategoryCard extends StatelessWidget {
   const CategoryCard({Key? key, required this.category }) : super(key: key);
 
 
-
-
-
   @override
   Widget build(BuildContext context) {
 
-    final repository =  Provider.of<Repository>(context, listen: false);
-
     return Container(
+      padding: const EdgeInsets.only(top: 35, bottom: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         color: Colors.white70,
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(10.0),
-        //TODO: Go to tasks list page
-        onTap: () {},
 
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(
+              builder: (BuildContext context) => TaskPage(category: category,)
+          ));
+        },
 
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 35, 0, 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SvgPicture.asset(
-                  'assets/images/${category.icon}.svg',
-                  semanticsLabel: 'Menu',
-                  color: Color(getColor(category.color)),
-                  width: 30,
-                  height: 30,
-                ),
-                const SizedBox(height: 5),
-                SizedBox(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        category.title ?? '',
-                        style: TwoDouTheme.globalTextTheme.headline2,
-                      ),
-                      Text(
-                        getTaskCount(category.taskCount),
-                        style: TwoDouTheme.globalTextTheme.bodyText2,
-                      ),
-                    ],
-                  ),
-                )
-                // const SizedBox(
-                //   height: 10.0,
-                // ),
-              ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SvgPicture.asset(
+              'assets/images/${category.icon}.svg',
+              semanticsLabel: 'Menu',
+              color: Color(getColor(category.color)),
+              width: 30,
+              height: 30,
             ),
-          ),
+            const SizedBox(height: 5),
+            SizedBox(
+              child: Column(
+                children: [
+                  Text(
+                    category.title ?? '',
+                    style: TwoDouTheme.globalTextTheme.headline2,
+                  ),
+                  Text(
+                    getTaskCount(category.taskCount),
+                    style: TwoDouTheme.globalTextTheme.bodyText2,
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
-      ),
+        ),
     );
   }
 

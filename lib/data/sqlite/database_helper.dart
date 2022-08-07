@@ -58,7 +58,7 @@ class DatabaseHelper {
     batch.insert(categoryTable, {
       'title': 'All',
       'color': '0xed553fe0',
-      'icon': 'file-text',
+      'icon': 'collection',
       'taskCount': 0
     });
 
@@ -83,13 +83,13 @@ class DatabaseHelper {
     batch.insert(categoryTable, {
       'title': 'Study',
       'color': '0xff8320de',
-      'icon': 'wallet',
+      'icon': 'book-half',
       'taskCount': 0
     });
     batch.insert(categoryTable, {
       'title': 'Home',
       'color': '0xffa81b14',
-      'icon': 'house-fill',
+      'icon': 'home-tree',
       'taskCount': 0
     });
     batch.insert(categoryTable, {
