@@ -4,15 +4,23 @@
 */
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:twodou_app/data/repository.dart';
 import '../theme.dart';
-import '../../data/model/category.dart';
+import '../../data/model/model.dart';
 
 class CategoryCard extends StatelessWidget {
   final Category category;
   const CategoryCard({Key? key, required this.category }) : super(key: key);
 
+
+
+
+
   @override
   Widget build(BuildContext context) {
+
+    final repository =  Provider.of<Repository>(context, listen: false);
 
     return Container(
       decoration: BoxDecoration(
@@ -65,4 +73,5 @@ class CategoryCard extends StatelessWidget {
       ),
     );
   }
+
 }
