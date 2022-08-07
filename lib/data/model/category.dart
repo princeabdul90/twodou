@@ -3,7 +3,7 @@
 * Date: 03/08/2022
 */
 
-import 'package:flutter/material.dart';
+
 import 'package:equatable/equatable.dart';
 
 // ignore: must_be_immutable

@@ -3,11 +3,10 @@
 * Date: 03/08/2022
 */
 import 'dart:async';
-import 'package:flutter/material.dart';
 
 import '../repository.dart';
 import 'database_helper.dart';
-import '../model/category.dart';
+import '../model/model.dart';
 
 class SqliteRepository extends Repository {
   final dbHelper = DatabaseHelper.instance;
@@ -41,6 +40,42 @@ class SqliteRepository extends Repository {
   Future<int> insertCategory(Category category) {
     return dbHelper.insertCategory(category);
   }
+
+  // ********* TASK METHOD *********//
+  @override
+  Future<List<Task>> findAllTasks() {
+    return dbHelper.findAllTasks();
+  }
+
+  @override
+  Stream<List<Task>> watchAllTasks() {
+    return dbHelper.watchAllTasks();
+  }
+
+  @override
+  Future<Task> findTaskById(int id) {
+    return dbHelper.findTaskById(id);
+  }
+
+
+  @override
+  Future<int> updateTask(Task task) {
+    return dbHelper.updateTask(task);
+  }
+
+  @override
+  Future<int> insertTask(Task task){
+    return dbHelper.insertTask(task);
+  }
+
+  @override
+  Future<void> deleteTask(Task task) {
+    return dbHelper.deleteTask(task);
+  }
+
+
+
+  // *********  INIT AND CLOSE *********//
 
   @override
   Future init() async {

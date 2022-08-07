@@ -7,8 +7,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:sqlbrite/sqlbrite.dart';
-
-import '../model/category.dart';
+import '../model/model.dart';
 
 class DatabaseHelper {
   static const _databaseName = 'TwoDou.db';
@@ -87,8 +86,12 @@ class DatabaseHelper {
       'icon': 'wallet',
       'taskCount': 0
     });
-    batch.insert(categoryTable,
-        {'title': 'Home', 'color': '0xffa81b14', 'icon': 'house-fill', 'taskCount': 0});
+    batch.insert(categoryTable, {
+      'title': 'Home',
+      'color': '0xffa81b14',
+      'icon': 'house-fill',
+      'taskCount': 0
+    });
     batch.insert(categoryTable, {
       'title': 'Paint',
       'color': '0xff763494',
@@ -152,7 +155,7 @@ class DatabaseHelper {
   }
 
   //**********--------????????????????---------******/
-  //********** PARSE CATEGORY DATA
+  //**********      PARSE CATEGORY DATA
   //**********--------????????????????---------******/
   List<Category> parseCategories(List<Map<String, dynamic>> categoryList) {
     final categories = <Category>[];
@@ -164,7 +167,15 @@ class DatabaseHelper {
     return categories;
   }
 
-  //TODO: Add parse tasks data
+  List<Task> parseTasks(List<Map<String, dynamic>> taskList) {
+    final tasks = <Task>[];
+
+    taskList.forEach((taskMap) {
+      final task = Task.fromJson(taskMap);
+      tasks.add(task);
+    });
+    return tasks;
+  }
 
   //**********--------????????????????---------******/
   //****** IMPLEMENTING REPOSITORY LIKE FUNCTIONS
@@ -174,8 +185,14 @@ class DatabaseHelper {
     final db = await instance.streamDatabase;
     final categoryList = await db.query(categoryTable);
     final categories = parseCategories(categoryList);
-
     return categories;
+  }
+
+  Future<List<Task>> findAllTasks() async {
+    final db = await instance.streamDatabase;
+    final taskList = await db.query(taskTable);
+    final tasks = parseTasks(taskList);
+    return tasks;
   }
 
   Stream<List<Category>> watchAllCategories() async* {
@@ -185,7 +202,10 @@ class DatabaseHelper {
         .mapToList((row) => Category.fromJson(row));
   }
 
-//TODO: Add stream watchAllTasks
+  Stream<List<Task>> watchAllTasks() async* {
+    final db = await instance.streamDatabase;
+    yield* db.createQuery(taskTable).mapToList((row) => Task.fromJson(row));
+  }
 
   Future<Category> findCategoryById(int id) async {
     final db = await instance.streamDatabase;
@@ -194,6 +214,19 @@ class DatabaseHelper {
     return category.first;
   }
 
+  Future<Task> findTaskById(int id) async {
+    final db = await instance.streamDatabase;
+    final taskList = await db.query(taskTable, where: 'id=$id');
+    final task = parseTasks(taskList);
+    return task.first;
+  }
+
+  Future<List<Task>> findCategoryTaskCount(int categoryId) async {
+    final db = await instance.streamDatabase;
+    final taskList = await db.query(taskTable, where: 'catId=$categoryId');
+    final tasks = parseTasks(taskList);
+    return tasks;
+  }
   // UPDATE
   Future<int> _update(String table, object, String columnId, int id) async {
     final db = await instance.streamDatabase;
@@ -205,6 +238,14 @@ class DatabaseHelper {
       return _update(
           categoryTable, category.toJson(), categoryId, category.id!);
     } else {
+      return Future.value(-1);
+    }
+  }
+
+  Future<int> updateTask(Task task) {
+    if(task.id != null) {
+      return _update(taskTable, task.toJson(), taskId, task.id!);
+    }else{
       return Future.value(-1);
     }
   }
@@ -223,6 +264,14 @@ class DatabaseHelper {
     }
   }
 
+  Future<int> deleteTask(Task task) async {
+    if(task.id != null) {
+      return _delete(taskTable, taskId, task.id!);
+    }else {
+      return Future.value(-1);
+    }
+  }
+
   // INSERT
   Future<int> insert(String table, Map<String, dynamic> row) async {
     final db = await instance.streamDatabase;
@@ -233,69 +282,11 @@ class DatabaseHelper {
     return insert(categoryTable, category.toJson());
   }
 
+  Future<int> insertTask(Task task) async {
+    return insert(taskTable, task.toJson());
+  }
+
   void close() {
     _streamDatabase.close();
   }
-
 }
-
-
-
-//
-// batch.insert(categoryTable, {
-// 'title': 'All',
-// 'color': 'lightBlue',
-// 'icon': 'assignment',
-// 'taskCount': 0
-// });
-//
-// batch.insert(categoryTable, {
-// 'title': 'Work',
-// 'color': 'lightBlue',
-// 'icon': 'Work',
-// 'taskCount': 0
-// });
-// batch.insert(categoryTable, {
-// 'title': 'Music',
-// 'color': 'orangeAccent',
-// 'icon': 'radio',
-// 'taskCount': 0
-// });
-// batch.insert(categoryTable, {
-// 'title': 'Travel',
-// 'color': 'greenAccent',
-// 'icon': 'flight_takeoff',
-// 'taskCount': 0
-// });
-// batch.insert(categoryTable, {
-// 'title': 'Study',
-// 'color': 'deepPurple',
-// 'icon': 'auto_stories',
-// 'taskCount': 0
-// });
-// batch.insert(categoryTable,
-// {'title': 'Home', 'color': 'red', 'icon': 'house', 'taskCount': 0});
-// batch.insert(categoryTable, {
-// 'title': 'Paint',
-// 'color': 'purple',
-// 'icon': 'color_lens',
-// 'taskCount': 0
-// });
-// batch.insert(categoryTable, {
-// 'title': 'Grocery',
-// 'color': 'teal',
-// 'icon': 'local_grocery_store',
-// 'taskCount': 0
-// });
-// batch.insert(categoryTable, {
-// 'title': 'Gym',
-// 'color': 'lightBlue',
-// 'icon': 'assignment',
-// 'taskCount': 0
-// });
-// batch.insert(categoryTable, {
-// 'title': 'Others',
-// 'color': 'lightBlue',
-// 'icon': 'assignment',
-// 'taskCount': 0
-// });

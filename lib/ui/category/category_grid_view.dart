@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'category_card.dart';
 import '../../data/repository.dart';
-import '../../data/model/category.dart';
+import '../../data/model/model.dart';
 
 class CategoryGridView extends StatelessWidget {
   const CategoryGridView({Key? key}) : super(key: key);
