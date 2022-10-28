@@ -4,11 +4,14 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:twodou_app/ui/task/TaskCheckBox.dart';
-import 'package:twodou_app/ui/theme.dart';
+
+import '../theme.dart';
+import 'TaskCheckBox.dart';
+
 
 class TaskTile extends StatelessWidget {
-  const TaskTile({Key? key}) : super(key: key);
+  final dynamic task;
+  const TaskTile({Key? key, required this.task}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +32,12 @@ class TaskTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Call Max', style: TwoDouTheme.globalTextTheme.headline2,),
-              Text('17:00', style: TwoDouTheme.globalTextTheme.bodyText2,),
+              Text(task.content, style: TwoDouTheme.globalTextTheme.headline2,),
+              Text(task.note, style: TwoDouTheme.globalTextTheme.bodyText2,),
             ],
           ),
           
-          const TaskCheckBox(value: false),
+          const TaskCheckBox(value: true),
 
         ],
       ),

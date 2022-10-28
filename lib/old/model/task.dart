@@ -6,41 +6,41 @@
 import 'package:equatable/equatable.dart';
 import 'category.dart';
 
-// ignore: must_be_immutable
-class Task extends Equatable {
-  int? id;
-  Category? catId;
-  String? content;
-  DateTime? dateTime;
-  String? note;
-  bool? status;
 
-  Task({
+class Task extends Equatable {
+  final int? id;
+  final int? categoryId;
+  final String? content;
+  //String? dateTime;
+  final String? note;
+  final int? status;
+
+  const Task({
     this.id,
-    required this.catId,
+    required this.categoryId,
     required this.content,
-    required this.dateTime,
+    //required this.dateTime,
     required this.note,
-    required this.status,
+    this.status = 0,
   });
 
   @override
-  List<Object?> get props => [catId, content, dateTime, note, status];
+  List<Object?> get props => [categoryId, content, note, status];
 
   factory Task.fromJson(Map<String, dynamic> json) => Task(
         id: json['taskId'],
-        catId: json['catId'],
+        categoryId: json['catId'],
         content: json['content'],
-        dateTime: json['dateTime'],
+        //dateTime: json['dateTime'],
         note: json['note'],
         status: json['status'],
       );
 
   Map<String, dynamic> toJson() => {
         'taskId': id,
-        'catId': catId,
+        'catId': categoryId,
         'content': content,
-        'dateTime': dateTime,
+       // 'dateTime': dateTime,
         'note': note,
         'status': status
       };

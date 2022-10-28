@@ -6,24 +6,21 @@
 
 import 'package:equatable/equatable.dart';
 
-// ignore: must_be_immutable
+
 class Category extends Equatable {
-  int? id;
+  final int? id;
   final String? title;
   final int? taskCount;
   final String? color;
   final String? icon;
 
-  Category({
-    this.id,
-    required this.taskCount,
-    required this.title,
-    required this.color,
-    required this.icon,
+   const Category({
+    this.id, this.taskCount, this.title, this.color, this.icon,
   });
 
   @override
   List<Object?> get props => [title, taskCount, color, icon];
+
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         id: json['categoryId'],
