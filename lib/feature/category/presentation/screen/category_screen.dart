@@ -5,19 +5,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../provider/category_repository_provider.dart';
 import 'category_card.dart';
-import '../../data/repository.dart';
-import '../../data/model/model.dart';
 
-class CategoryGridView extends StatelessWidget {
-  const CategoryGridView({Key? key}) : super(key: key);
+import '../../domain/category.dart';
+
+class CategoryScreen extends StatelessWidget {
+  const CategoryScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
    
-      final repository = Provider.of<Repository>(context);
-      return FutureBuilder(
-        future: repository.findAllCategories(),
+      final repository = Provider.of<CategoryRepositoryProvider>(context);
+      return StreamBuilder(
+        stream: repository.watchAllCategories(),
         builder: ( context, AsyncSnapshot<List<Category>> snapshot ){
           if (snapshot.hasData ){
             final categories = snapshot.data!;

@@ -1,15 +1,17 @@
 /*
 * Developer: Abubakar Abdullahi
-* Date: 01/08/2022
+* Date: 17/10/2022
 */
+
 import 'package:flutter/material.dart';
-import 'package:twodou_app/ui/theme.dart';
+import 'package:twodou_app/feature/task/presentation/screen/add_new_task.dart';
 
-import 'category/category_page.dart';
-import 'colors.dart';
+import '../utility/colors.dart';
+import '../utility/theme.dart';
+import 'category/presentation/screen/category_screen.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({Key? key}) : super(key: key);
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +43,20 @@ class MainScreen extends StatelessWidget {
             ),
 
             const SliverToBoxAdapter(
-                child: CategoryGridView()
+                child: CategoryScreen()
             )
 
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        //TODO: Go to add Task Page
-        onPressed: () {},
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: const Icon(Icons.add),
+      //   onPressed: () {
+      //     // Navigator.push(context, MaterialPageRoute(
+      //     //     builder: (context) => const AddNewTask()
+      //     // ));
+      //   },
+      // ),
     );
   }
 
